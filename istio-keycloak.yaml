@@ -1,0 +1,27 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: jwt-check
+#  namespace: sample-app
+spec:
+  selector:
+    matchLabels:
+      app: masterdata-api-service
+  jwtRules:
+    ##Configure the followings part according to you cluster
+    - issuer: "https://keycloak.dev.eeko.ai/auth/realms/istio"
+      jwksUri: "https://keycloak.dev.eeko.ai/auth/realms/istio/protocol/openid-connect/certs"
+      outputPayloadToHeader: jwt-parsed # export parsed token as a header
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: user-check
+spec:
+  selector:
+    matchLabels:
+      app: masterdata-api-service
+  rules:
+    - from:
+        - source:
+            requestPrincipals: ["*"]
