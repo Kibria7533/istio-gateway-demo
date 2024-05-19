@@ -22,3 +22,9 @@ htpasswd -Bc htpasswd registryuser
 kubectl create secret generic registry-basic-auth \
   --from-file=htpasswd=./htpasswd
 ```
+
+
+# For argocd run 
+``` kubectl apply -k ./ -n argocd --wait=true```
+
+``` kubectl apply -f argocdgateway.yaml ```
