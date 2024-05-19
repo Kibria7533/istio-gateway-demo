@@ -17,12 +17,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: kube-dev
+  name: cd-dev
   namespace: istio-system
 spec:
   dnsNames:
-    - kube-dev.eeko.ai
-  secretName: kube-dev
+    - cd-dev.eeko.ai
+  secretName: cd-dev
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer

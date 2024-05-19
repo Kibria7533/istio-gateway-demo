@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: registry-dashboard-gateway
+  name: cd-dashboard-gateway
   namespace: istio-system
 spec:
   selector:
@@ -12,43 +12,43 @@ spec:
       name: https
       protocol: HTTPS
     hosts:
-     - registry-dev.eeko.ai
+     - cd-dev.eeko.ai
     tls:
       mode: SIMPLE
-      credentialName: registry-dev
+      credentialName: cd-dev
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: registry-dashboard-virtualservice
+  name: cd-dashboard-virtualservice
   namespace: istio-system
 spec:
   hosts:
-    - registry-dev.eeko.ai
+    - cd-dev.eeko.ai
   gateways:
-   - registry-dashboard-gateway
+   - cd-dashboard-gateway
   http:
   - match:
     - uri:
         prefix: "/"
     route:
     - destination:
-        host: harbor-core.default.svc.cluster.local
+        host: argocd-server.argocd.svc.cluster.local
         port:
           number: 80
-#---
-# DestinationRule definition
+---
+## DestinationRule definition
 # apiVersion: networking.istio.io/v1beta1
 # kind: DestinationRule
 # metadata:
-#   name: kubernetes-dashboard
+#   name: cd-dashboard
 #   namespace: istio-system
 # spec:
-#   host: kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local
+#   host: argocd-argo-cd-server.argo-cd.svc.cluster.local
 #   trafficPolicy:
 #     tls:
 #       mode: SIMPLE
-#       credentialName: registry-dev
+#       credentialName: cd-dev
 # ---
 # apiVersion: install.istio.io/v1alpha1
 # kind: IstioOperator
