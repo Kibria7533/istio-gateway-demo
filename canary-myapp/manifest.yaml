@@ -82,7 +82,7 @@ spec:
          - bdris-canary.gov.bd
       tls:
          mode: SIMPLE
-         credentialName: canary-dev
+         credentialName: my-app-tls
 
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -114,9 +114,9 @@ metadata:
   namespace: istio-system
 spec:
   host: my-app.default.svc.cluster.local
-#  trafficPolicy:
-#       tls:
-#         mode: SIMPLE
+  trafficPolicy:
+       tls:
+         mode: SIMPLE
   subsets:
     - name: stable
       labels:

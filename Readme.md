@@ -34,5 +34,5 @@ kubectl create secret generic registry-basic-auth \
 # Fake certificate demo
 
 ```
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout my-app.key -out my-app.crt -subj "/CN=yourdomain.com/O=MyApp"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout my-app.key -out my-app.crt -subj "/CN=bdris-canary.gov.bd/O=MyApp"
 ```
