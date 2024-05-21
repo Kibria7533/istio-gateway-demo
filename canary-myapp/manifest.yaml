@@ -55,6 +55,24 @@ spec:
           image: 10.105.100.13:5000/canary-test/my-app:canary
           ports:
             - containerPort: 80
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: cannary-dashboard-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - bdris-canary.gov.bd
+
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -63,7 +81,9 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-    - "bdris-canary.gov.bd"
+    - bdris-canary.gov.bd
+  gateways:
+    - cannary-dashboard-gateway
   http:
     - route:
         - destination:
@@ -89,20 +109,3 @@ spec:
     - name: canary
       labels:
         version: canary
----
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: app-dashboard-gateway
-  namespace: istio-system
-spec:
-  selector:
-    istio: ingressgateway
-  servers:
-    - port:
-        number: 80
-        name: http
-        protocol: HTTP
-      hosts:
-        - bdris-canary.gov.bd
-
