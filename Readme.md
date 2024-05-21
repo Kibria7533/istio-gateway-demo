@@ -35,4 +35,5 @@ kubectl create secret generic registry-basic-auth \
 
 ```
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout my-app.key -out my-app.crt -subj "/CN=bdris-canary.gov.bd/O=MyApp"
+kubectl create secret tls my-app-tls --cert=my-app.crt --key=my-app.key -n istio-system
 ```
