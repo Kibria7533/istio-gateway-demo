@@ -28,3 +28,11 @@ kubectl create secret generic registry-basic-auth \
 ``` kubectl apply -k ./ -n argocd --wait=true```
 
 ``` kubectl apply -f argocdgateway.yaml ```
+
+
+
+# Fake certificate demo
+
+```
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout my-app.key -out my-app.crt -subj "/CN=yourdomain.com/O=MyApp"
+```

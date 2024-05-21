@@ -72,6 +72,17 @@ spec:
         protocol: HTTP
       hosts:
         - bdris-canary.gov.bd
+      tls:
+        httpsRedirect: true
+    - port:
+        number: 443
+        name: https
+        protocol: HTTPS
+      hosts:
+         - bdris-canary.gov.bd
+      tls:
+         mode: SIMPLE
+         credentialName: canary-dev
 
 ---
 apiVersion: networking.istio.io/v1alpha3
@@ -102,6 +113,9 @@ metadata:
   namespace: istio-system
 spec:
   host: my-app.default.svc.cluster.local
+#  trafficPolicy:
+#       tls:
+#         mode: SIMPLE
   subsets:
     - name: stable
       labels:
