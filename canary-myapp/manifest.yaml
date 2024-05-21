@@ -114,9 +114,9 @@ metadata:
   namespace: istio-system
 spec:
   host: my-app.default.svc.cluster.local
-  trafficPolicy:
-       tls:
-         mode: SIMPLE
+#  trafficPolicy:
+#       tls:
+#         mode: SIMPLE
   subsets:
     - name: stable
       labels:
