@@ -17,12 +17,12 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: cd-dev
+  name: cd-demo
   namespace: istio-system
 spec:
   dnsNames:
-    - cd-dev.eeko.ai
-  secretName: cd-dev
+    - cd-demo.eeko.ai
+  secretName: cd-demo
   issuerRef:
     name: cluster-issuer
     kind: ClusterIssuer

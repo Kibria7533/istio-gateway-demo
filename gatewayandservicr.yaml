@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: app-dashboard-gateway
+  name: cd-demo-dashboard-gateway
   namespace: istio-system
 spec:
   selector:
@@ -12,7 +12,7 @@ spec:
         name: http
         protocol: HTTP
     hosts:
-        - app-dev.eeko.ai
+        - cd-demo.eeko.ai
     tls:
         httpsRedirect: true
   - port:
@@ -20,30 +20,30 @@ spec:
       name: https
       protocol: HTTPS
     hosts:
-     - app-dev.eeko.ai
+     - cd-demo.eeko.ai
     tls:
       mode: SIMPLE
-      credentialName: app-dev
+      credentialName: cd-demo
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: app-dashboard-virtualservice
+  name: cd-demo-dashboard-virtualservice
   namespace: istio-system
 spec:
   hosts:
-    - app-dev.eeko.ai
+    - cd-demo.eeko.ai
   gateways:
-   - app-dashboard-gateway
+   - cd-demo-dashboard-gateway
   http:
   - match:
     - uri:
         prefix: "/"
     route:
     - destination:
-        host: frontend.default.svc.cluster.local
+        host: kiali.istio-system.svc.cluster.local
         port:
-          number: 80
+          number: 20001
 #---
 # DestinationRule definition
 # apiVersion: networking.istio.io/v1beta1
