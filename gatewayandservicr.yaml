@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: cd-demo-dashboard-gateway
+  name: eeko-ai-dashboard-gateway
   namespace: istio-system
 spec:
   selector:
@@ -12,7 +12,7 @@ spec:
         name: http
         protocol: HTTP
     hosts:
-        - cd-demo.eeko.ai
+        - eeko.ai
     tls:
         httpsRedirect: true
   - port:
@@ -20,57 +20,27 @@ spec:
       name: https
       protocol: HTTPS
     hosts:
-     - cd-demo.eeko.ai
+     - eeko.ai
     tls:
       mode: SIMPLE
-      credentialName: cd-demo
+      credentialName: eeko-ai
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: cd-demo-dashboard-virtualservice
+  name: eeko-ai-dashboard-virtualservice
   namespace: istio-system
 spec:
   hosts:
-    - cd-demo.eeko.ai
+    - eeko.ai
   gateways:
-   - cd-demo-dashboard-gateway
+   - eeko-ai-dashboard-gateway
   http:
   - match:
     - uri:
         prefix: "/"
     route:
     - destination:
-        host: kiali.istio-system.svc.cluster.local
+        host: frontend.default.svc.cluster.local
         port:
-          number: 20001
-#---
-# DestinationRule definition
-# apiVersion: networking.istio.io/v1beta1
-# kind: DestinationRule
-# metadata:
-#   name: kubernetes-dashboard
-#   namespace: istio-system
-# spec:
-#   host: kubernetes-dashboard.kubernetes-dashboard.svc.cluster.local
-#   trafficPolicy:
-#     tls:
-#       mode: SIMPLE
-#       credentialName: registry-dev
-# ---
-# apiVersion: install.istio.io/v1alpha1
-# kind: IstioOperator
-# metadata:
-#   name: example-istiocontrolplane
-#   namespace: istio-system
-# spec:
-#   components:
-#     ingressGateways:
-#     - name: istio-ingressgateway
-#       enabled: true
-#       k8s:
-#         env:
-#         - name: ISTIO_META_USER_SDS
-#           value: "true"
-#         - name: SDS_ENABLED
-#           value: "true"
+          number: 80
